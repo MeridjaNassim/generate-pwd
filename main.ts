@@ -36,7 +36,7 @@ const cipher = await aes.encrypt(pwd);
 const data = {
   password : pwd,
   label : label,
-  strong_password : cipher.base64url()
+  strong_password : cipher.base64()
 }
 console.log("Result Data: ", data)
 
