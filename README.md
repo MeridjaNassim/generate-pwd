@@ -20,5 +20,6 @@ this script doesn't have a runnable file (.exe) yet but it will be coming soon.
 - You need a label of the generated password lets call it, **my_label**
 - You run the following command after **cloning the repository**.
   - `deno run main.ts --unstable --allow-read --allow-write --label my_label --pwd my_password`
+  - You can make the password stronger by specifying a `--round <number>` where number is greater or equal than 1
   - To save the results to a file add this to the end of the first command `--save <path>` where path is where you want to store it.
 - If you need help with how to use it run this command `deno run main.ts --unstable --allow-read --allow-write --help`
