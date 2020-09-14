@@ -1,6 +1,10 @@
 import { AES } from "https://deno.land/x/god_crypto/aes.ts";
 import { parse } from "https://deno.land/std/flags/mod.ts";
-import { writeJson, existsSync } from "https://deno.land/std/fs/mod.ts";
+import {
+  writeJson,
+  existsSync,
+  readJson,
+} from "https://deno.land/std/fs/mod.ts";
 
 /// CONSTANTS:
 
@@ -35,6 +39,9 @@ if (parsedArgs.help) {
   console.log(
     "you can add the --save followed by a path to save the result data to a file located in that file",
   );
+  console.log(
+    "you can add the --append to append the content of new password to the existing file otherwise it will be overwritten",
+  );
   Deno.exit();
 }
 let label = String(parsedArgs.label);
@@ -64,7 +71,7 @@ let round = 1;
 if (parsedArgs.round) {
   round = Number(parsedArgs.round);
   round = Number.isFinite(round) ? round : 1;
-  round = round > 1 ? round : 1; 
+  round = round > 1 ? round : 1;
 }
 for (let i = 0; i < round; i++) {
   let cipher = await aes.encrypt(pwdStrong);
@@ -82,8 +89,12 @@ console.log("Result Data: ", data);
 if (parsedArgs.save) {
   const path = String(parsedArgs.save);
   console.log("Saving to file in path :", path);
+  let append = Boolean(parsedArgs.append);
   if (!existsSync(path)) {
-    writeJson(path, data);
+    await writeJson(path, [data]);
+  }else if(append) {
+    let json  = await readJson(path) as Record<string,unknown>[]
+    await writeJson(path,[...json,data])
   }
 }
 console.timeEnd(TIMER);

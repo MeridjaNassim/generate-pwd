@@ -22,4 +22,13 @@ this script doesn't have a runnable file (.exe) yet but it will be coming soon.
   - `deno run main.ts --unstable --allow-read --allow-write --label my_label --pwd my_password`
   - You can make the password stronger by specifying a `--round <number>` where number is greater or equal than 1
   - To save the results to a file add this to the end of the first command `--save <path>` where path is where you want to store it.
+  - To append to an existing file add the `--append` flag ( make sure to specify and existing JSON file )
 - If you need help with how to use it run this command `deno run main.ts --unstable --allow-read --allow-write --help`
+
+## If you want to customize this script to your liking
+- Star the repo first :p
+- Fork the repo
+- Clone it locally, make sure you have deno installed
+- One way to customize the script is to modify the Initialization Vector: IV to another random 16bytes string
+- Add more features if you want
+- Please credit the original author in your repo ( or projects that might use this)
